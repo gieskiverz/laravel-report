@@ -40,7 +40,6 @@ Route::get('coa/destroy/{id}/', [CoaController::class, 'destroy']);
 
 Route::get('transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
 Route::get('transaksi/edit/{id}', [TransaksiController::class, 'edit']);
-Route::get('transaksi/modol/{id}', [TransaksiController::class, 'modol']);
 Route::post('transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
 Route::post('transaksi/update', [TransaksiController::class, 'update'])->name('transaksi.update');
 Route::get('transaksi/destroy/{id}/', [TransaksiController::class, 'destroy']);

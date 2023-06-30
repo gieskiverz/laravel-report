@@ -117,10 +117,6 @@ class ExportController extends Controller
         return $nettIncomeResult;
     }
 
-    public function index(){
-        echo "goblog";
-    }
-
     public function edit($year){
         // $year = Carbon::now()->year;
         // $year = $request->input('year');

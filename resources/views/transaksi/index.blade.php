@@ -131,7 +131,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                    <button type="submit" class="tambah btn btn-primary">Download</button>
+                    <button type="submit" class="btn btn-primary">Download</button>
                 </div>
             </form>
         </div>
