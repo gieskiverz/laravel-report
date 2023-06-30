@@ -11,11 +11,11 @@
 https://github.com/jeroennoten/Laravel-AdminLTE
 
 ## Step
-composer install
-php artisan migrate
-php artisan db:seed --class=UserSeeder
-npm run dev
-php artisan serve
+- composer install
+- php artisan migrate
+- php artisan db:seed --class=UserSeeder
+- npm run dev
+- php artisan serve
 
 ## About Laravel
 
