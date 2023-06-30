@@ -7,7 +7,7 @@ use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
 
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\Datatables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +27,7 @@ class TransaksiController extends Controller
         if ($request->ajax()) {
             $data =  Transaksi::all();
             $count = 0;
-            return Datatables::of($data)
+            return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('iteration', function () use (&$count) {
                 $count++;

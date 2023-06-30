@@ -7,7 +7,7 @@ use App\Models\Kategori;
 use App\Http\Requests\StoreCoaRequest;
 use App\Http\Requests\UpdateCoaRequest;
 
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 
 class CoaController extends Controller
@@ -25,7 +25,7 @@ class CoaController extends Controller
         if ($request->ajax()) {
             $data =  Coa::all();
             $count = 0;
-            return Datatables::of($data)
+            return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('iteration', function () use (&$count) {
                 $count++;

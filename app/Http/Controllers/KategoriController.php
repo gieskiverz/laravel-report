@@ -6,8 +6,8 @@ use App\Models\Kategori;
 use App\Http\Requests\StoreKategoriRequest;
 use App\Http\Requests\UpdateKategoriRequest;
 
-use Yajra\DataTables\Facades\Datatables;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 
 class KategoriController extends Controller
 {
@@ -23,7 +23,7 @@ class KategoriController extends Controller
         if ($request->ajax()) {
             $data =  Kategori::all();
             $count = 0;
-            return Datatables::of($data)
+            return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('iteration', function () use (&$count) {
                 $count++;
