@@ -11,11 +11,15 @@
 https://github.com/jeroennoten/Laravel-AdminLTE
 
 ## Step
+- clone this repo, go to project folder 
 - composer install
+- copy .env.example and rename it to .env
+- php artisan key:generate
 - php artisan migrate
 - php artisan db:seed --class=UserSeeder
-- npm run dev
 - php artisan serve
+
+Congrats!
 
 ## About Laravel
 
