@@ -20,7 +20,7 @@ https://github.com/jeroennoten/Laravel-AdminLTE
 - php artisan db:seed --class=UserSeeder
 - php artisan serve
 
-if still cant run the apps, try to run ##composer dump-autoload
+if still cant run the apps, try to run composer dump-autoload
 
 Congrats!
 
