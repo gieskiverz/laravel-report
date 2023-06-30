@@ -14,6 +14,7 @@ https://github.com/jeroennoten/Laravel-AdminLTE
 - clone this repo, go to project folder 
 - composer install
 - copy .env.example and rename it to .env
+- go to .env, fill DB_DATABASE=your_database_name
 - php artisan key:generate
 - php artisan migrate
 - php artisan db:seed --class=UserSeeder
