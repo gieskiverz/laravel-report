@@ -9,15 +9,20 @@
 @stop
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <x-adminlte-button label="Add" theme="primary" icon="fas fa-plus" class="mb-3 mr-1 float-right" data-toggle="modal" data-target="#addTransaksiModal" value="add" id="addData"/>
-        <x-adminlte-button label="Download Report" theme="success" icon="fas fa-file" class="mb-3 mr-1 float-right" data-toggle="modal" data-target="#exportModal" value="Export" id="exportData"/>
+<div class="d-flex justify-content-end">
+    <x-adminlte-button label="Report" theme="success" icon="fas fa-file" class="mb-3 mr-1" data-toggle="modal" data-target="#exportModal" value="Export" id="exportData"/>
+    <x-adminlte-button label="Add" theme="primary" icon="fas fa-plus" class="mb-3 mr-1" data-toggle="modal" data-target="#addTransaksiModal" value="add" id="addData"/>
         {{-- <a href="{{ url('/export') }}" class="btn btn-success mb-3 mr-1 float-right">Download Excel</a> --}}
-    </div>
 </div>
 <div id="notif"></div>
-
+@php
+$config = [
+    "timePicker" => true,
+    "startDate" => "js:moment().subtract(6, 'days')",
+    "endDate" => "js:moment()",
+    "locale" => ["format" => "YYYY-MM-DD HH:mm"],
+];
+@endphp
 <table id="transaksiTable" class="table">
     <thead>
         <tr>
@@ -114,15 +119,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exportModalLabel">Download Report</h5>
+                <h5 class="modal-title" id="exportModalLabel">Report</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <form id="exportForm">
+            <form id="exportForm" action="{{ route('export.report') }}" method="POST" target="_blank">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label>Pilih Tahun</label>
-                        <select class="custom-select" name="year" id="year">
+                        <label>Choose Date Range</label>
+                        <x-adminlte-date-range name="range_filter" class="mr-1"/>
+                        {{-- <select class="custom-select" name="year" id="year">
                             @for ($i = 2000; $i <= $year; $i++)
                                 @if ($i==$year)
                                     <option value="{{$i}}" selected>{{$i}}</option>
@@ -130,12 +136,13 @@
                                     <option value="{{$i}}">{{$i}}</option>
                                 @endif
                             @endfor
-                        </select>
+                        </select> --}}
                     </div>
+                    <input type="hidden" name="aksi" id="aksi" value="view" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                    <button type="submit" class="btn btn-primary">Download</button>
+                    <button type="submit" class="btn btn-primary">View</button>
                 </div>
             </form>
         </div>
@@ -146,6 +153,8 @@
 @section('plugins.Datatables', true)
 @section('plugins.TempusDominusBs4', true)
 @section('plugins.JqueryValidation', true)
+@section('plugins.DateRangePicker', true)
+
 @section('js')
 <script>
     $(function() {
@@ -254,10 +263,23 @@
         });
 
         
-        $('#exportForm').submit(function(e) {
-            e.preventDefault();
-            window.open("export/report/"+$('#year').val(),'newStuff');
-        });
+        // $('#exportForm').submit(function(e) {
+        //     e.preventDefault();
+        //     // window.open("export/report/"+$('#year').val(),'newStuff');
+        //     $.ajax({
+        //         url: "{{ route('export.report') }}",
+        //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        //         type: "POST",
+        //         data: $(this).serialize(),
+        //         success: function(response) {
+        //             console.log(response);
+        //         },
+        //         error: function(data) {
+        //             var errors = data.responseJSON;
+        //             console.log(errors);
+        //         }
+        //     });
+        // });
 
         $(document).on('click', '.edit', function(event){
             event.preventDefault(); 

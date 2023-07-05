@@ -45,4 +45,4 @@ Route::post('transaksi/update', [TransaksiController::class, 'update'])->name('t
 Route::get('transaksi/destroy/{id}/', [TransaksiController::class, 'destroy']);
 
 Route::get('export', [ExportController::class, 'index']);
-Route::get('export/report/{id}', [ExportController::class, 'report']);
+Route::post('export/report', [ExportController::class, 'report'])->name('export.report');
