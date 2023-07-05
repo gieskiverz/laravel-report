@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coa;
+use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
@@ -24,6 +25,16 @@ class TransaksiController extends Controller
     {
         $year = Carbon::now()->year;
         $coa = Coa::all();
+        // $kategori = Kategori::all();
+
+        $q_kategori = DB::table('coas')
+        ->join('kategoris', 'kategoris.id', '=', 'coas.kategori_id')
+        ->select('kategoris.nama AS nama_kategori', 'coas.id as id', 'coas.nama AS nama_coa', 'coas.kode AS kode')
+        ->get();
+        
+        $kategori = collect($q_kategori)->groupBy('nama_kategori');
+
+        // dd($groupedData);
         if ($request->ajax()) {
             $data =  Transaksi::all();
             $count = 0;
@@ -32,6 +43,14 @@ class TransaksiController extends Controller
             ->addColumn('iteration', function () use (&$count) {
                 $count++;
                 return $count;
+            })
+            ->addColumn('kategori', function($row){
+                $kategori = DB::table('coas')
+                    ->join('kategoris', 'kategoris.id', '=', 'coas.kategori_id')
+                    ->where('coas.id', $row->coa_id)
+                    ->select('kategoris.nama')
+                    ->get();          
+                return $kategori[0]->nama;
             })
             ->addColumn('coa_kode', function($row){
                 return Coa::findOrFail($row->coa_id)->kode;
@@ -62,11 +81,7 @@ class TransaksiController extends Controller
             ->rawColumns(['iteration','action'])
             ->make(true);
         }
-        return view('transaksi.index', compact('coa','year'));
-    }
-
-    public function modol($id){
-        echo $id;
+        return view('transaksi.index', compact('coa','year','kategori'));
     }
 
     /**

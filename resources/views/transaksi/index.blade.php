@@ -23,6 +23,7 @@
         <tr>
             <th>No</th>
             <th>Tanggal</th>
+            <th>Kategori</th>
             <th>COA Kode</th>
             <th>COA Nama</th>
             <th>Desc</th>
@@ -56,9 +57,12 @@
                     </div>
                     <div class="form-group mb-3">
                         <label>COA</label>
-                        <select class="custom-select" name="coa_id" id="coa_id">
-                            @foreach ($coa as $item)
-                                <option value="{{$item->id}}">{{$item->kode}} | {{$item->nama}}</option>
+                        <select class="custom-select" name="coa_id" id="coa_id">)
+                            @foreach ($kategori as $key =>$value)
+                                <optgroup label="{{$key}}">
+                                @foreach ($value as $item)
+                                    <option value="{{$item->id}}">{{$item->kode}} | {{$item->nama_coa}}</option>
+                                @endforeach
                             @endforeach
                         </select>
                     </div>
@@ -157,6 +161,7 @@
                     searchable: false
                 },
                 {data: 'tanggal', name: 'tanggal'},
+                {data: 'kategori', name: 'kategori'},
                 {data: 'coa_kode', name: 'coa_kode'},
                 {data: 'coa_nama', name: 'coa_nama'},
                 {data: 'desc', name: 'desc'},
